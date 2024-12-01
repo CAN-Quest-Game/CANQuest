@@ -13,13 +13,13 @@ void UMyGameInstance::Init()
 	Super::Init();
 
 	// Create and connect the TCP socket
-	CreateSocket();
-	ConnectToServer();
-	// Start a timer to regularly call ReceiveData
-	if (Socket && Socket->GetConnectionState() == SCS_Connected)
-	{
-		GetWorld()->GetTimerManager().SetTimer(ReceiveTimerHandle, this, &UMyGameInstance::ReceiveData, 0.01f, true);
-	}
+	//CreateSocket();
+	//ConnectToServer();
+	//// Start a timer to regularly call ReceiveData
+	//if (Socket && Socket->GetConnectionState() == SCS_Connected)
+	//{
+	//	GetWorld()->GetTimerManager().SetTimer(ReceiveTimerHandle, this, &UMyGameInstance::ReceiveData, 0.01f, true);
+	//}
 
 	UE_LOG(LogTemp, Warning, TEXT("Game Instance Initialized"));
 }
