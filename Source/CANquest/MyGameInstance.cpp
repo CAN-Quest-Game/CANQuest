@@ -13,13 +13,14 @@ void UMyGameInstance::Init()
 	Super::Init();
 
 	// Create and connect the TCP socket
-	//CreateSocket();
-	//ConnectToServer();
-	//// Start a timer to regularly call ReceiveData
-	//if (Socket && Socket->GetConnectionState() == SCS_Connected)
-	//{
-	//	GetWorld()->GetTimerManager().SetTimer(ReceiveTimerHandle, this, &UMyGameInstance::ReceiveData, 0.01f, true);
-	//}
+	CreateSocket();
+	ConnectToServer();
+	// Start a timer to regularly call ReceiveData
+	if (Socket && Socket->GetConnectionState() == SCS_Connected)
+	{
+		GetWorld()->GetTimerManager().SetTimer(ReceiveTimerHandle, this, &UMyGameInstance::ReceiveData, 0.01f, true);
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, "Receive Data should have been called");
+	}
 
 	UE_LOG(LogTemp, Warning, TEXT("Game Instance Initialized"));
 }
@@ -166,12 +167,6 @@ void UMyGameInstance::OnConnectionClosed()
 	UE_LOG(LogTemp, Warning, TEXT("OnConnectionClosed: Connection closed"));
 }
 
-void UMyGameInstance::OnMessageReceived(const FString& MessageString)
-{
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, "Received message: " + MessageString);
-
-	UE_LOG(LogTemp, Warning, TEXT("OnMessageReceived: Received message: %s"), *MessageString);
-}
 
 void UMyGameInstance::ReceiveData()
 {
@@ -183,6 +178,7 @@ void UMyGameInstance::ReceiveData()
 		// Check if there is pending data
 		if (Socket->HasPendingData(Size))
 		{
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, "Receive Data has pending Data");
 			// Limiting the amount of data to avoid overflow
 			uint32 DataSize = FMath::Min(Size, 65507u);
 
@@ -198,7 +194,10 @@ void UMyGameInstance::ReceiveData()
 				FString ReceivedString = FString(ANSI_TO_TCHAR(reinterpret_cast<const char*>(ReceivedData.GetData())));
 				if (!ReceivedString.IsEmpty())
 				{
-					OnMessageReceived(ReceivedString);
+					// Update the latest message
+					LatestMessage = ReceivedString;
+					GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, "Latest Message: " + LatestMessage);
+
 				}
 			}
 		}
