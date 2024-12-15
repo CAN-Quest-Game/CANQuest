@@ -9,6 +9,7 @@
 /**
  *
  */
+
 UCLASS()
 class CANQUEST_API UMyGameInstance : public UGameInstance
 {
@@ -36,8 +37,13 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "TCP")
 	void OnConnectionClosed();
 
-	UFUNCTION(BlueprintCallable, Category = "TCP")
-	void OnMessageReceived(const FString& MessageString); private:
+	//UFUNCTION(BlueprintCallable, Category = "TCP")
+	//void OnMessageReceived(const FString& MessageString); 
+
+	UPROPERTY(BlueprintReadWrite, Category = "TCP")
+	FString LatestMessage;
+
+private:
 
 	FSocket* Socket;
 
