@@ -58,7 +58,7 @@ private:
 
 	// TCP configuration
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TCP", meta = (AllowPrivateAccess = "true"))
-	FString ServerIP = "141.215.219.197";      // Default IP, can be modified in Blueprints
+	FString ServerIP = "192.168.56.101";      // Default IP, can be modified in Blueprints
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TCP", meta = (AllowPrivateAccess = "true"))
 	int32 ServerPort = 8080;             // Default port, can be modified in Blueprints
