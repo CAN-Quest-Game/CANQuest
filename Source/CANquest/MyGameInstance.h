@@ -58,10 +58,10 @@ private:
 
 	// TCP configuration
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TCP", meta = (AllowPrivateAccess = "true"))
-	FString ServerIP = "192.168.56.101";      // Default IP, can be modified in Blueprints
+	FString ServerIP = "192.168.1.10";      // Default IP, can be modified in Blueprints
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TCP", meta = (AllowPrivateAccess = "true"))
-	int32 ServerPort = 8080;             // Default port, can be modified in Blueprints
+	int32 ServerPort = 5005;             // Default port, can be modified in Blueprints
 
 	void CreateSocket();                 // Helper function to create the TCP socket instance with the specified IP and Port
 	void ReceiveData();                  // Function to handle receiving data from the server
