@@ -20,7 +20,7 @@ public:
 	virtual void Shutdown() override;
 
 	UFUNCTION(BlueprintCallable, Category = "TCP")
-	void ConnectToServer();
+	void ConnectToServer(const FString& playerIpInput);
 
 	UFUNCTION(BlueprintCallable, Category = "TCP")
 	void DisconnectFromServer();
@@ -34,8 +34,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "TCP")
 	void OnConnectionError(const FString& Error);
 
-	UFUNCTION(BlueprintCallable, Category = "TCP")
-	void OnConnectionClosed();
+	//UFUNCTION(BlueprintCallable, Category = "TCP")
+	//void OnConnectionClosed();
 
 	//UFUNCTION(BlueprintCallable, Category = "TCP")
 	//void OnMessageReceived(const FString& MessageString); 
@@ -43,11 +43,16 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "TCP")
 	FString LatestMessage;
 
+	UPROPERTY(BlueprintReadWrite, Category = "TCP")
+	bool bIsConnected = false;              // Flag to determine if the socket is connected
+
 private:
 
 	FSocket* Socket;
 
 	//bool bMessageSent = false;  // Flag to ensure the message is only sent once
+
+    bool bIsConnecting = false;             // Flag to determine if the socket is connecting
 
 	// Reconnection-related variables
 	bool bShouldReconnect = true;           // Determines if we should keep reconnecting
@@ -65,5 +70,10 @@ private:
 
 	void CreateSocket();                 // Helper function to create the TCP socket instance with the specified IP and Port
 	void ReceiveData();                  // Function to handle receiving data from the server
+
+    void CheckConnectionStatus();        // Function to check the connection status
+    FTimerHandle ConnectionCheckTimerHandle; // Handle for managing the connection check timer
+
+	void HandleDisconnection(); // Function to handle server disconnect
 
 };
