@@ -16,11 +16,11 @@ void UMyGameInstance::Init()
 	//CreateSocket();
 	//ConnectToServer();
 	// Start a timer to regularly call ReceiveData
-	if (Socket && Socket->GetConnectionState() == SCS_Connected)
-	{
-		GetWorld()->GetTimerManager().SetTimer(ReceiveTimerHandle, this, &UMyGameInstance::ReceiveData, 0.01f, true);
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, "Receive Data should have been called");
-	}
+	//if (Socket && Socket->GetConnectionState() == SCS_Connected)
+	//{
+	//	GetWorld()->GetTimerManager().SetTimer(ReceiveTimerHandle, this, &UMyGameInstance::ReceiveData, 0.01f, true);
+	//	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, "Receive Data should have been called");
+	//}
 
 	// Start monitoring connection status
     GetWorld()->GetTimerManager().SetTimer(ConnectionCheckTimerHandle, this, &UMyGameInstance::CheckConnectionStatus, 1.0f, true);
@@ -244,6 +244,10 @@ void UMyGameInstance::OnConnected()
     }
 
 	UE_LOG(LogTemp, Warning, TEXT("OnConnected: Successfully connected to server"));
+
+	GetWorld()->GetTimerManager().SetTimer(ReceiveTimerHandle, this, &UMyGameInstance::ReceiveData, 0.01f, true);
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, "Receive Data should have been called");
+	UE_LOG(LogTemp, Warning, TEXT("Receive Data should have been called"));
 }
 
 void UMyGameInstance::OnConnectionError(const FString& Error)
