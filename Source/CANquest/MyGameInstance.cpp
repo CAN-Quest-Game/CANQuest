@@ -23,7 +23,7 @@ void UMyGameInstance::Init()
 	//}
 
 	// Start monitoring connection status
-    GetWorld()->GetTimerManager().SetTimer(ConnectionCheckTimerHandle, this, &UMyGameInstance::CheckConnectionStatus, 1.0f, true);
+    //GetWorld()->GetTimerManager().SetTimer(ConnectionCheckTimerHandle, this, &UMyGameInstance::CheckConnectionStatus, 1.0f, true);
 
 	UE_LOG(LogTemp, Warning, TEXT("Game Instance Initialized"));
 }
@@ -238,7 +238,7 @@ void UMyGameInstance::OnConnected()
     int val = 1;
     if (val == 1)
     {
-        SendMessage("Hello from UE4!");
+        SendMessage("Hello from UE5!");
         val = 0;
 
     }
@@ -248,6 +248,11 @@ void UMyGameInstance::OnConnected()
 	GetWorld()->GetTimerManager().SetTimer(ReceiveTimerHandle, this, &UMyGameInstance::ReceiveData, 0.01f, true);
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, "Receive Data should have been called");
 	UE_LOG(LogTemp, Warning, TEXT("Receive Data should have been called"));
+
+	// Start monitoring connection status
+	GetWorld()->GetTimerManager().SetTimer(ConnectionCheckTimerHandle, this, &UMyGameInstance::CheckConnectionStatus, 1.0f, true);
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "Lost Connection with server!");
+	UE_LOG(LogTemp, Warning, TEXT("Lost Connection with server!"));
 }
 
 void UMyGameInstance::OnConnectionError(const FString& Error)
