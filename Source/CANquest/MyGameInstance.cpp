@@ -251,8 +251,7 @@ void UMyGameInstance::OnConnected()
 
 	// Start monitoring connection status
 	GetWorld()->GetTimerManager().SetTimer(ConnectionCheckTimerHandle, this, &UMyGameInstance::CheckConnectionStatus, 1.0f, true);
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "Lost Connection with server!");
-	UE_LOG(LogTemp, Warning, TEXT("Lost Connection with server!"));
+
 }
 
 void UMyGameInstance::OnConnectionError(const FString& Error)
