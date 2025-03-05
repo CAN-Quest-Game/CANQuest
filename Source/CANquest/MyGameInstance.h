@@ -76,4 +76,7 @@ private:
 
 	void HandleDisconnection(); // Function to handle server disconnect
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings", meta = (AllowPrivateAccess = "true"))
+    int32 GraphicsIdx = 0;			// Index of the graphics settings
+
 };
