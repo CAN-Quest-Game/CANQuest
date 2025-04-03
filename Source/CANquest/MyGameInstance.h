@@ -46,6 +46,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "TCP")
 	bool bIsConnected = false;              // Flag to determine if the socket is connected
 
+	UPROPERTY(BlueprintReadWrite, Category = "Level")
+    FString LevelSelection = "Level_Tutorial"; // Default level, can be modified in Blueprints
+
 private:
 
 	FSocket* Socket;
